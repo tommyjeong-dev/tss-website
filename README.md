@@ -32,7 +32,7 @@ npx serve out
 ## 프로젝트 구조
 
 ```
-TSS&/
+tss/
 ├── app/
 │   ├── globals.css
 │   ├── layout.tsx
