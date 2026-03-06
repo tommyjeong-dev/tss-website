@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 
 const mobileNavLinks = [
@@ -12,6 +12,9 @@ const mobileNavLinks = [
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   const closeMenu = () => setMenuOpen(false);
 
@@ -93,8 +96,9 @@ export default function Header() {
         </nav>
       </div>
 
-      {/* 모바일: 오른쪽 사이드 메뉴 — body에 포털로 렌더해 딤드 클릭이 확실히 동작하도록 */}
-      {typeof document !== "undefined" &&
+      {/* 모바일: 마운트 후에만 포털 렌더 (서버/클라이언트 일치 → 하이드레이션 오류 방지) */}
+      {mounted &&
+        typeof document !== "undefined" &&
         createPortal(
           <div
             className={`sm:hidden fixed inset-0 z-[100] ${

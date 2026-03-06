@@ -28,8 +28,8 @@ export default function Hero() {
           backgroundColor: "#0a0a0a",
         }}
       />
-      {/* 이미지 없을 때 대비: 배경색 위에 추가 오버레이 */}
-      <div className="absolute inset-0 bg-[#0a0a0a]/25" />
+      {/* 이미지 없을 때 대비: 배경색 위에 추가 오버레이 (높이 10% 확장) */}
+      <div className="absolute top-0 left-0 right-0 bottom-[-10%] bg-[#0a0a0a]/25" />
 
       <div className="relative z-10 flex flex-col items-center text-center max-w-[30.8rem] mx-auto">
         <p className="text-white/90 text-base md:text-lg mb-2">
