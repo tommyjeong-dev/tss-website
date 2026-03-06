@@ -44,7 +44,7 @@ export default function Hero() {
           {t("hero.description")}
         </p>
 
-        <div className="flex flex-col gap-3 w-full max-w-[280px]">
+        <div className="flex flex-col gap-3 w-full max-w-[280px] mt-6">
           <Link
             href="#products"
             className="w-full py-3.5 px-5 rounded-lg bg-[#0d9488] text-white font-medium text-center hover:bg-[#0f766e] transition-colors"
