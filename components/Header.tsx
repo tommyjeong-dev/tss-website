@@ -55,7 +55,7 @@ export default function Header() {
             </svg>
           </Link>
           <Link href="/" className="text-white font-semibold text-lg tracking-tight hover:opacity-90">
-            TSS & SAM SAE
+            TSS & SAMGAE
           </Link>
         </div>
         <nav className="flex items-center gap-2">

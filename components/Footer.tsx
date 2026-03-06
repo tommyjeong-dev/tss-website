@@ -6,6 +6,41 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 const DIRECTIONS_IMAGE = "/images/directions-map.png";
 
+const FOOTER_STRUCTURED_DATA = [
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: "(주)티에스에스 (TSS)",
+    description: "Total Stainless Solution - 스테인리스 후판/코일, 단조·플랜지. 부산 강서구 가달 공장.",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "가달2로 55번길 50",
+      addressLocality: "강서구",
+      addressRegion: "부산",
+      addressCountry: "KR",
+    },
+    telephone: "+82-51-301-2100",
+    faxNumber: "+82-51-301-0265",
+    geo: { "@type": "GeoCoordinates", address: "부산광역시 강서구 가달2로 55번길 50" },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: "삼개 (Sam Gae)",
+    description: "부산 사상구 공장.",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "낙동대로 1468번길 29",
+      addressLocality: "사상구",
+      addressRegion: "부산",
+      addressCountry: "KR",
+    },
+    telephone: "+82-51-507-5531",
+    faxNumber: "+82-51-507-5531",
+    geo: { "@type": "GeoCoordinates", address: "부산광역시 사상구 낙동대로 1468번길 29" },
+  },
+];
+
 export default function Footer() {
   const { t } = useLanguage();
   const [popupOpen, setPopupOpen] = useState(false);
@@ -25,6 +60,10 @@ export default function Footer() {
 
   return (
     <footer id="contact" className="scroll-mt-20 px-4 py-8 bg-[#0a0a0a] border-t border-white/5 text-zinc-400 text-sm">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(FOOTER_STRUCTURED_DATA) }}
+      />
       <div className="max-w-4xl mx-auto flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
         <div className="space-y-6 min-w-0">
           <div>

@@ -40,6 +40,7 @@ PDF나 사진 파일을 `public/images/`에 넣고, `lib/product-data.ts`에서 
 | ESAB 설비      | `public/images/equipment-esab.jpg` |
 | 특수강/니켈 합금 메인 | `public/images/alloys-hero.jpg` (선택) |
 | 찾아오시는 길 지도  | `public/images/directions-map.png` (푸터 썸네일·팝업) |
+| **OG 공유 이미지** | `public/images/og-image.png` (1200×630 권장, 카카오톡·링크드인 등 미리보기) |
 
 ---
 
