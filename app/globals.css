@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #0a0a0a;
+  --bg-card: #0f0f12;
+  --text-primary: #fafafa;
+  --text-muted: #a1a1aa;
+  --accent: #0d9488;
+  --accent-hover: #0f766e;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+}
+
+html {
+  scroll-padding-top: 5rem;
+}
+
+body {
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  min-height: 100vh;
+}

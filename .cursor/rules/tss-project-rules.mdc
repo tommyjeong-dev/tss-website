@@ -1,0 +1,27 @@
+---
+description: TSS 브랜드 사이트 프로젝트 공통 규칙
+alwaysApply: true
+---
+
+# TSS 프로젝트 규칙
+
+## 프로젝트 성격
+- **브랜드/기업 신원 사이트(Corporate Identity Site)** — 신뢰도·설비 역량 전달
+- **프론트엔드 중심**: SPA/SSG, 복잡한 DB·백엔드 없음
+- **스택**: Next.js (App Router), TypeScript, Tailwind CSS
+- **빌드**: `output: 'export'` 정적 내보내기(SSG)
+
+## 코딩·작업 원칙
+- 코드 수정 전 `.cursor/rules` 및 프로젝트 규칙 준수
+- SQL/마이그레이션·DB 작업은 사용자 직접 실행 가이드만 제공
+- 백필 등 배치 작업은 스크립트 제공 후 사용자가 터미널에서 직접 실행
+
+## 구조
+- 페이지: `app/**/*.tsx`
+- 공통 컴포넌트: `components/`
+- 스타일: Tailwind 우선, `app/globals.css`에서 CSS 변수 활용
+- Stitch 디자인: 히어로·제품 카드 등 시각 요소는 디자인 시안 반영 후 구현
+
+## 금지
+- `.env` 읽기/노출/커밋 금지
+- 민감 정보 하드코딩 금지
