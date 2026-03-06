@@ -1,27 +1,31 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
+import LanguageSwitcher from "./LanguageSwitcher";
 
-const mobileNavLinks = [
-  { href: "#products", label: "제품" },
-  { href: "#history", label: "연혁" },
-  { href: "#contact", label: "문의" },
-];
+const sectionIds = ["products", "history", "contact"] as const;
 
 export default function Header() {
+  const pathname = usePathname();
+  const { t } = useLanguage();
   const [menuOpen, setMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const isHome = pathname === "/";
 
   useEffect(() => setMounted(true), []);
 
   const closeMenu = () => setMenuOpen(false);
 
-  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.startsWith("#")) {
+  /** 홈이면 인페이지 스크롤, 다른 페이지면 href="/#id"로 이동하므로 기본 동작 유지 */
+  const getSectionHref = (id: string) => (isHome ? `#${id}` : `/#${id}`);
+
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    if (isHome) {
       e.preventDefault();
-      const id = href.slice(1);
       const el = document.getElementById(id);
       const header = document.querySelector("header");
       if (el && header) {
@@ -33,8 +37,8 @@ export default function Header() {
       } else {
         el?.scrollIntoView({ behavior: "smooth", block: "start" });
       }
-      closeMenu();
     }
+    closeMenu();
   };
 
   return (
@@ -44,7 +48,7 @@ export default function Header() {
           <Link
             href="/"
             className="p-2 text-white hover:bg-white/10 rounded-lg transition-colors"
-            aria-label="홈"
+            aria-label={t("nav.home")}
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
@@ -55,31 +59,21 @@ export default function Header() {
           </Link>
         </div>
         <nav className="flex items-center gap-2">
-          <Link
-            href="#products"
-            className="hidden sm:inline text-sm text-zinc-400 hover:text-white transition-colors px-2"
-            onClick={(e) => handleAnchorClick(e, "#products")}
-          >
-            제품
-          </Link>
-          <Link
-            href="#history"
-            className="hidden sm:inline text-sm text-zinc-400 hover:text-white transition-colors px-2"
-            onClick={(e) => handleAnchorClick(e, "#history")}
-          >
-            연혁
-          </Link>
-          <Link
-            href="#contact"
-            className="hidden sm:inline text-sm text-zinc-400 hover:text-white transition-colors px-2"
-            onClick={(e) => handleAnchorClick(e, "#contact")}
-          >
-            문의
-          </Link>
+          {sectionIds.map((id) => (
+            <Link
+              key={id}
+              href={getSectionHref(id)}
+              className="hidden sm:inline text-sm text-zinc-400 hover:text-white transition-colors px-2"
+              onClick={(e) => handleAnchorClick(e, id)}
+            >
+              {t(`nav.${id}`)}
+            </Link>
+          ))}
+          <LanguageSwitcher />
           <button
             type="button"
             className="sm:hidden p-2 text-white hover:bg-white/10 rounded-lg transition-colors"
-            aria-label={menuOpen ? "메뉴 닫기" : "메뉴 열기"}
+            aria-label={menuOpen ? t("nav.menuClose") : t("nav.menuOpen")}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((prev) => !prev)}
           >
@@ -96,9 +90,8 @@ export default function Header() {
         </nav>
       </div>
 
-      {/* 모바일: 마운트 후에만 포털 렌더 (서버/클라이언트 일치 → 하이드레이션 오류 방지) */}
+      {/* 모바일: mounted일 때만 포털 렌더 (useEffect 이후 = 클라이언트만, 서버/초기 클라이언트는 동일하게 미렌더) */}
       {mounted &&
-        typeof document !== "undefined" &&
         createPortal(
           <div
             className={`sm:hidden fixed inset-0 z-[100] ${
@@ -136,14 +129,14 @@ export default function Header() {
                 </svg>
               </button>
               <nav className="px-4 py-6 flex flex-col gap-2 flex-1 min-h-[70vh]">
-                {mobileNavLinks.map(({ href, label }) => (
+                {sectionIds.map((id) => (
                   <Link
-                    key={href}
-                    href={href}
+                    key={id}
+                    href={getSectionHref(id)}
                     className="py-3 px-4 text-white hover:bg-white/10 rounded-lg transition-colors text-base"
-                    onClick={(e) => handleAnchorClick(e, href)}
+                    onClick={(e) => handleAnchorClick(e, id)}
                   >
-                    {label}
+                    {t(`nav.${id}`)}
                   </Link>
                 ))}
               </nav>

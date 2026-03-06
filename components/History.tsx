@@ -1,29 +1,13 @@
 "use client";
 
+import { useLanguage } from "@/contexts/LanguageContext";
+
 export type TimelineItem = {
   year: number;
   month?: string;
   title: string;
   description?: string;
 };
-
-const HISTORY_DATA: TimelineItem[] = [
-  { year: 1967, title: "삼개(SG) 설립" },
-  { year: 2013, month: "11", title: "㈜티에스에스(TSS) 설립" },
-  { year: 2013, month: "12", title: "영국 Outokumpu와 슬래브(Slab) 수입 계약 체결", description: "Outokumpu: 글로벌 스테인리스강 제조사" },
-  { year: 2015, month: "03", title: "인도 VIRAJ와 앵글 바(Angle Bar) 수입 계약 체결" },
-  { year: 2015, month: "07", title: "남아프리카공화국 Columbus와 수입 계약 체결" },
-  { year: 2016, month: "05", title: "핀란드 Outokumpu와 코일(Coil) 수입 계약 체결" },
-  { year: 2016, month: "09", title: "부산 강서구 미음산단 공장 이전" },
-  { year: 2019, month: "10", title: "Bystar 3015 및 FS3015 레이저 절단기 도입", description: "고정밀 레이저 절단 장비" },
-  { year: 2019, month: "11", title: "LNG용 SUS CORNER(304L 9% Nickel) 제품 공급 시작" },
-  { year: 2020, month: "03", title: "TANAKA 6k 레이저 절단기 설치" },
-  { year: 2020, month: "09", title: "POSCO와 9% 니켈 304L 공급 협약 체결" },
-  { year: 2021, month: "01", title: "밴드쇼(Bandsaw) 500H, 600H, 1100H 라인업 구축" },
-  { year: 2022, month: "05", title: "영국 Outokumpu와 추가 수입 계약 체결" },
-  { year: 2025, month: "11", title: "부산 사상구 신규 공장 이전" },
-  { year: 2025, month: "12", title: "JAS-ANZ로부터 ISO 9001 품질 경영 인증 획득", description: "ISO 9001: 국제 품질 경영 시스템 인증" },
-];
 
 function TimelineNode({ item, isLast }: { item: TimelineItem; isLast: boolean }) {
   const dateLabel = item.month ? `${item.year}.${item.month}` : String(item.year);
@@ -59,31 +43,33 @@ function TimelineNode({ item, isLast }: { item: TimelineItem; isLast: boolean })
 }
 
 export default function History() {
+  const { t, tn } = useLanguage();
+  const items = (tn<TimelineItem[]>("history.items") ?? []) as TimelineItem[];
+
   return (
     <section id="history" className="scroll-mt-20 px-4 py-16 bg-[#0a0a0a]">
       <div className="max-w-3xl mx-auto">
-        <h2 className="text-2xl font-semibold text-white mb-2">연혁</h2>
-        <p className="text-zinc-400 text-sm mb-10">History</p>
+        <h2 className="text-2xl font-semibold text-white mb-2">{t("history.title")}</h2>
+        <p className="text-zinc-400 text-sm mb-10">{t("history.subtitle")}</p>
 
         <ul className="space-y-0">
-            {HISTORY_DATA.map((item, index) => (
-              <TimelineNode
-                key={`${item.year}-${item.month ?? ""}-${index}`}
-                item={item}
-                isLast={index === HISTORY_DATA.length - 1}
-              />
-            ))}
+          {items.map((item, index) => (
+            <TimelineNode
+              key={`${item.year}-${item.month ?? ""}-${index}`}
+              item={item}
+              isLast={index === items.length - 1}
+            />
+          ))}
         </ul>
 
-        {/* Placeholder: ISO 인증 로고 자리 */}
         <div className="mt-12 flex flex-wrap items-center justify-center gap-6 rounded-lg border border-dashed border-white/20 bg-white/[0.02] py-8 px-6">
           <div className="text-center text-zinc-500 text-sm">
             <div className="w-20 h-20 mx-auto mb-2 rounded-lg bg-white/5 flex items-center justify-center text-xs">
-              ISO 9001
+              {t("history.isoPlaceholder")}
               <br />
-              로고
+              {t("history.isoLogo")}
             </div>
-            <span>인증 로고 영역</span>
+            <span>{t("history.certArea")}</span>
           </div>
         </div>
       </div>

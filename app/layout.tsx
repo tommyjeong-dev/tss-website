@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import ClientProviders from "@/components/ClientProviders";
 
 export const metadata: Metadata = {
   title: "TSS & SAM SAE | Total Stainless Solution",
@@ -13,9 +14,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className="bg-[#0a0a0a]">
+    <html lang="ko" className="bg-[#0a0a0a]" suppressHydrationWarning>
       <body className="antialiased min-h-screen text-white bg-[#0a0a0a]">
-        {children}
+        <ClientProviders>{children}</ClientProviders>
       </body>
     </html>
   );

@@ -1,4 +1,7 @@
+"use client";
+
 import ProductCard from "./ProductCard";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 /* PDF(회사소개서) 주요 품목에 맞춘 아이콘 */
 const icons = {
@@ -29,27 +32,23 @@ const icons = {
   ),
 };
 
-const products = [
-  { icon: icons.coils, titleKo: "스테인레스 후판/코일", titleEn: "Stainless Coils & Plates" },
-  { icon: icons.cutting, titleKo: "플라즈마/레이저 절단물", titleEn: "Plasma & Laser Cutting" },
-  { icon: icons.forging, titleKo: "단조제품 및 플랜지", titleEn: "Forgings & Flanges" },
-  { icon: icons.alloys, titleKo: "특수강 및 니켈 합금", titleEn: "Duplex & Nickel Alloys" },
-];
+const productSlugs = ["coils", "cutting", "forging", "alloys"] as const;
 
 export default function ProductSection() {
+  const { t } = useLanguage();
   return (
     <section id="products" className="scroll-mt-20 px-4 py-10 bg-[#0a0a0a]">
       <div className="max-w-4xl mx-auto">
         <h2 className="text-xl font-semibold text-white mb-6">
-          주요 제품 및 서비스
+          {t("products.sectionTitle")}
         </h2>
         <div className="grid grid-cols-2 gap-4">
-          {products.map((p) => (
+          {productSlugs.map((slug) => (
             <ProductCard
-              key={p.titleKo}
-              icon={p.icon}
-              titleKo={p.titleKo}
-              titleEn={p.titleEn}
+              key={slug}
+              slug={slug}
+              icon={icons[slug]}
+              title={t(`products.${slug}`)}
             />
           ))}
         </div>

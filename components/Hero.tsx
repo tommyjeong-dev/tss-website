@@ -2,11 +2,13 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const HERO_IMAGES = ["/hero-bg.png", "/Screenshot001.png", "/Screenshot002.png", "/Screenshot003.png"];
 const ROTATE_INTERVAL_MS = 10_000;
 
 export default function Hero() {
+  const { t } = useLanguage();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -33,14 +35,14 @@ export default function Hero() {
 
       <div className="relative z-10 flex flex-col items-center text-center max-w-[30.8rem] mx-auto">
         <p className="text-white/90 text-base md:text-lg mb-2">
-          Total Stainless Solution
+          {t("hero.subtitle")}
         </p>
         <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight mb-3">
-          <span className="text-[#0d9488]">스테인리스</span> 및{" "}
-          <span className="text-[#0d9488]">단조</span> 솔루션의 리더
+          <span className="text-[#0d9488]">{t("hero.titleHighlight1")}</span> {t("hero.titleAnd")}{" "}
+          <span className="text-[#0d9488]">{t("hero.titleHighlight2")}</span> {t("hero.titleSuffix")}
         </h1>
         <p className="text-white/80 text-sm md:text-base mb-8">
-          1967년부터 이어온 기술력으로 최고의 품질을 약속합니다.
+          {t("hero.description")}
         </p>
 
         <div className="flex flex-col gap-3 w-full max-w-[280px]">
@@ -48,13 +50,13 @@ export default function Hero() {
             href="#products"
             className="w-full py-3.5 px-5 rounded-lg bg-[#0d9488] text-white font-medium text-center hover:bg-[#0f766e] transition-colors"
           >
-            제품 카탈로그 보기
+            {t("hero.ctaProducts")}
           </Link>
           <Link
             href="#contact"
             className="w-full py-3.5 px-5 rounded-lg bg-white/10 text-white font-medium text-center border border-white/20 hover:bg-white/15 transition-colors"
           >
-            문의하기
+            {t("hero.ctaContact")}
           </Link>
         </div>
       </div>
