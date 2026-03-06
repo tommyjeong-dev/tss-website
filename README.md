@@ -3,6 +3,11 @@
 기업 신뢰도와 설비 역량을 보여주는 **브랜드 사이트**입니다.  
 프론트엔드 중심 SPA/SSG 방식으로, Next.js 정적 내보내기를 사용합니다.
 
+## Cursor 규칙
+
+이 프로젝트를 Cursor로 열면 적용되는 규칙은 **`.cursor/rules/tss-project-rules.mdc`** 입니다.  
+코드 수정·작업 시 해당 파일을 참조하면 실수를 줄일 수 있습니다.
+
 ## 스택
 
 - **Next.js 15** (App Router, `output: 'export'`)
