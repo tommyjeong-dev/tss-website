@@ -22,7 +22,6 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-[85vh] flex flex-col justify-center px-5 pt-6 pb-12 overflow-hidden">
-      {/* 배경·오버레이를 한 레이어로 묶어 Hero 섹션 안에만 위치 */}
       <div className="absolute inset-0 overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -31,7 +30,6 @@ export default function Hero() {
             backgroundColor: "#0a0a0a",
           }}
         />
-        <div className="absolute top-0 left-0 right-0 bottom-[30%] bg-[#0a0a0a]/25" />
       </div>
 
       <div className="relative z-10 flex flex-col items-center text-center max-w-[30.8rem] mx-auto">
