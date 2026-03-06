@@ -22,16 +22,17 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-[85vh] flex flex-col justify-center px-5 pt-6 pb-12 overflow-hidden">
-      {/* 배경: 4장 이미지가 10초마다 로테이션 + 어두운 오버레이 */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage,
-          backgroundColor: "#0a0a0a",
-        }}
-      />
-      {/* 이미지 없을 때 대비: 배경색 위 추가 오버레이 (섹션 안으로만 제한해 아래 섹션 가리지 않음) */}
-      <div className="absolute inset-0 bg-[#0a0a0a]/25" />
+      {/* 배경·오버레이를 한 레이어로 묶어 Hero 섹션 안에만 위치 */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage,
+            backgroundColor: "#0a0a0a",
+          }}
+        />
+        <div className="absolute top-0 left-0 right-0 bottom-[30%] bg-[#0a0a0a]/25" />
+      </div>
 
       <div className="relative z-10 flex flex-col items-center text-center max-w-[30.8rem] mx-auto">
         <p className="text-white/90 text-base md:text-lg mb-2">
