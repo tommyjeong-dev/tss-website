@@ -37,7 +37,7 @@ const productSlugs = ["coils", "cutting", "forging", "alloys"] as const;
 export default function ProductSection() {
   const { t } = useLanguage();
   return (
-    <section id="products" className="scroll-mt-20 px-4 py-10 bg-[#0a0a0a]">
+    <section id="products" className="relative z-10 scroll-mt-20 px-4 py-10 bg-[#0a0a0a]">
       <div className="max-w-4xl mx-auto">
         <h2 className="text-xl font-semibold text-white mb-6">
           {t("products.sectionTitle")}
