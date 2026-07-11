@@ -13,6 +13,7 @@ export const translations: Record<
       description: string;
       ctaProducts: string;
       ctaContact: string;
+      slideLabel: string;
     };
     products: {
       sectionTitle: string;
@@ -80,6 +81,7 @@ export const translations: Record<
       description: "1967년부터 이어온 기술력으로 최고의 품질을 약속합니다.",
       ctaProducts: "제품 카탈로그 보기",
       ctaContact: "문의하기",
+      slideLabel: "{n}번 배경 이미지 보기",
     },
     products: {
       sectionTitle: "주요 제품 및 서비스",
@@ -162,6 +164,7 @@ export const translations: Record<
       description: "We promise the highest quality with expertise since 1967.",
       ctaProducts: "View Products",
       ctaContact: "Contact Us",
+      slideLabel: "Show background image {n}",
     },
     products: {
       sectionTitle: "Products & Services",

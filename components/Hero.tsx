@@ -7,6 +7,8 @@ import { useLanguage } from "@/contexts/LanguageContext";
 const HERO_IMAGES = ["/hero-bg.png", "/Screenshot001.png", "/Screenshot002.png", "/Screenshot003.png"];
 const ROTATE_INTERVAL_MS = 10_000;
 
+const HERO_OVERLAY = "linear-gradient(180deg, rgba(10,10,10,0.82) 0%, rgba(10,10,10,0.55) 45%, rgba(10,10,10,0.96) 100%)";
+
 export default function Hero() {
   const { t } = useLanguage();
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -18,18 +20,21 @@ export default function Hero() {
     return () => clearInterval(id);
   }, []);
 
-  const backgroundImage = `linear-gradient(180deg, rgba(10,10,10,0.82) 0%, rgba(10,10,10,0.55) 45%, rgba(10,10,10,0.96) 100%), url('${HERO_IMAGES[currentIndex]}')`;
-
   return (
     <section className="relative min-h-[85vh] flex flex-col justify-center px-5 pt-6 pb-12 overflow-hidden">
-      <div className="absolute inset-0 overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage,
-            backgroundColor: "#0a0a0a",
-          }}
-        />
+      <div className="absolute inset-0 overflow-hidden bg-[#0a0a0a]">
+        {/* 배경 이미지를 겹쳐 쌓아 opacity로 크로스페이드 */}
+        {HERO_IMAGES.map((src, index) => (
+          <div
+            key={src}
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000 ease-in-out motion-reduce:transition-none"
+            style={{
+              backgroundImage: `${HERO_OVERLAY}, url('${src}')`,
+              opacity: index === currentIndex ? 1 : 0,
+            }}
+            aria-hidden
+          />
+        ))}
       </div>
 
       <div className="relative z-10 flex flex-col items-center text-center max-w-[30.8rem] mx-auto">
@@ -58,6 +63,24 @@ export default function Hero() {
             {t("hero.ctaContact")}
           </Link>
         </div>
+      </div>
+
+      {/* 배경 이미지 인디케이터 (클릭 시 해당 슬라이드로 전환) */}
+      <div className="relative z-10 mt-8 flex items-center justify-center gap-2.5">
+        {HERO_IMAGES.map((src, index) => (
+          <button
+            key={src}
+            type="button"
+            onClick={() => setCurrentIndex(index)}
+            aria-label={t("hero.slideLabel").replace("{n}", String(index + 1))}
+            aria-current={index === currentIndex}
+            className={`h-2 rounded-full transition-all duration-300 ${
+              index === currentIndex
+                ? "w-6 bg-[#0d9488]"
+                : "w-2 bg-white/30 hover:bg-white/50"
+            }`}
+          />
+        ))}
       </div>
     </section>
   );
