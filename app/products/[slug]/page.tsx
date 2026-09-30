@@ -11,7 +11,7 @@ import {
 
 type Props = { params: Promise<{ slug: string }> };
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://tss-website.vercel.app";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://tss-website-ten.vercel.app";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
